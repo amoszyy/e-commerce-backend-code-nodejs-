@@ -9,15 +9,16 @@ cloudinary.config({
     api_secret: process.env.api_secret
   });
 
-const addImage = (req, res)=>{
-    console.log(req.body)
+const uploadproduct = (req, res)=>{
+    // console.log(req.body)
     // let {myfile, token, image} = req.body
     const myfile = req.body.myfile
     const token = req.body.token
     const productname = req.body.productname
     const price = req.body.price
     const description = req.body.description
-    
+    let uid = req.body.uid
+
   
     cloudinary.v2.uploader.upload(myfile,(err,result)=>{
         if(err){
@@ -27,7 +28,7 @@ const addImage = (req, res)=>{
             console.log(result)
             imageurl = result.secure_url
             // res.send({message:"Image upload successful",status:true,uploadedimage:image}) 
-            let uploadDeets = {imageurl, productname, price, description, token}  
+            let uploadDeets = {imageurl, productname, price, description, token, uid}  
             sellerModel({_id:token}, (err, result)=>{})
             let form = new productModel(uploadDeets)
             form.save((err)=>{
@@ -37,7 +38,7 @@ const addImage = (req, res)=>{
               
               } else{
                 res.send({message:"product saved successfully", details:form ,status:true})
-                console.log(details)
+                // console.log(details)
 
               }
             })
@@ -46,20 +47,41 @@ const addImage = (req, res)=>{
   );
 
 }
-const saveProduct = (req, res)=>{
-  let token = req.body.token
-  sellerModel({_id:token}, (err, result)=>{})
-  let form = new productModel(req.body)
-  form.save((err)=>{
+const displaytraderProduct = (req, res)=>{
+  const token = req.body.token
+  productModel.find({token:token}, (err, result)=>{
+    if(err){
+      res.send({message:"an error occured"})
+      console.log(err)
+    } else {
+      if(!result){
+        res.send({message:"couldn't find products"})
+
+      } else{
+        res.send({message:"here are the results", result})
+        console.log(result)
+
+      }
+     
+      // console.log(result)
+
+    } 
+
+  })
+
+}
+
+
+const displayallProducts = (req, res)=>{
+  productModel.find((err, result)=>{
     if(err){
       res.send({message:"an error occured", err})
       console.log(err)
     } else{
-      res.send({message:"product saved successfully", details:form ,status:true})
-      console.log(details)
+      res.send({message:"here are the products",result})
+      // console.log(result)
     }
   })
 
-
 }
-module.exports= {addImage, saveProduct}
+module.exports= {uploadproduct, displaytraderProduct, displayallProducts}

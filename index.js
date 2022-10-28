@@ -22,9 +22,11 @@ mongoose.connect(URI,(err)=>{
 const userRouter = require("./routes/user.route")
 const productRouter = require("./routes/product.route")
 const traderRouter = require("./routes/seller.route")
+const cartRouter = require("./routes/usercart.route")
 app.use("/product", productRouter);
 app.use("/user",userRouter);
 app.use("/trader", traderRouter)
+app.use("/cart", cartRouter)
 
 
 
