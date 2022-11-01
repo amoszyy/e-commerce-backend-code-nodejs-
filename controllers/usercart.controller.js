@@ -36,4 +36,21 @@ const savecartdetails = (req, res)=>{
     // ecommerceuserModel.findone({_id:token}, (err, result)=>{})
     // let form = new cartModel(req.body)
 }
-module.exports = {savecartdetails}
+
+const findusercartdetails = (req, res)=>{
+    let {token} = req.body;
+    cartModel.find({token:token}, (err, result)=>{
+        if(err){
+            console.log(err)
+        } else{
+            if(!result){
+                console.log("couldnt't find details")
+            } else{
+                res.send({message:"here are the cartdetails", result})
+                console.log(result)
+            }
+        }
+    })
+
+}
+module.exports = {savecartdetails, findusercartdetails}
