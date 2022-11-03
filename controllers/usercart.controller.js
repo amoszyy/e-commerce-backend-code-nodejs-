@@ -53,4 +53,18 @@ const findusercartdetails = (req, res)=>{
     })
 
 }
-module.exports = {savecartdetails, findusercartdetails}
+const deleteItem = (req, res)=>{
+    let {id} = req.body;
+    cartModel.findOneAndDelete({_id:id}, (err, result)=>{
+        if(err){
+            console.log("an err occured ", err)
+            res.send({message:"an error occured", err})
+        } else{
+            console.log("deleted successfully")
+            res.send({message:"deleted successfully", result})
+        }
+
+    })
+   
+}
+module.exports = {savecartdetails, findusercartdetails, deleteItem}
