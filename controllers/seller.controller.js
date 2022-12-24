@@ -58,4 +58,5 @@ const authenticateSeller =(req, res)=>{
   });
 
 }
+
 module.exports={registerSeller, authenticateSeller}

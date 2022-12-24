@@ -37,7 +37,7 @@ const uploadproduct = (req, res)=>{
                 console.log(err)
               
               } else{
-                res.send({message:"product saved successfully", details:form ,status:true})
+                res.send({message:"product uploaded successfully", details:form ,status:true})
                 // console.log(details)
 
               }
@@ -84,4 +84,20 @@ const displayallProducts = (req, res)=>{
   })
 
 }
-module.exports= {uploadproduct, displaytraderProduct, displayallProducts}
+
+const deleteItem=(req, res)=>{
+  let {id} = req.body;
+  productModel.findOneAndDelete({_id:id}, (err, result)=>{
+      if(err){
+          console.log("an err occured ", err)
+          res.send({message:"an error occured", err})
+      } else{
+          console.log("deleted successfully")
+          res.send({message:"deleted successfully", result})
+      }
+
+  })
+  
+
+}
+module.exports= {uploadproduct, displaytraderProduct, displayallProducts, deleteItem}
