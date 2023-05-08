@@ -100,4 +100,5 @@ const deleteItem=(req, res)=>{
   
 
 }
+
 module.exports= {uploadproduct, displaytraderProduct, displayallProducts, deleteItem}

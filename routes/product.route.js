@@ -7,4 +7,5 @@ router.post("/displaytraderproduct", displaytraderProduct)
 router.get("/displayallproducts", displayallProducts)
 router.post("/deleteTraderitem", deleteItem)
 
+
 module.exports = router;

@@ -13,6 +13,8 @@ const URI = process.env.MONGO_URI
 mongoose.connect(URI,(err)=>{
     if(err){
         console.log("mongoose is not connecting...")
+        console.log(err)
+
     } else{
         console.log("mongoose has connected")
     }
