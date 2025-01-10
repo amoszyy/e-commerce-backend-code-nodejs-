@@ -1,5 +1,6 @@
 html
 css
+bootstrap
 javascript
 react
 nodejs
